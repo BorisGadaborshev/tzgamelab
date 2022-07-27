@@ -1,0 +1,12 @@
+.boardGame{
+  display: flex;
+  flex-flow: column wrap;
+  align-content: space-between;
+  height: 665px;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+  padding: 20px;
+  width: 50%;
+  margin: 40px auto;
+
+}
