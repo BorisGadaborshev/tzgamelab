@@ -1,5 +1,6 @@
 import React from 'react'
-import {  useState } from 'react'
+import {  useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import Box from '../Box/Box';
 import './Board.css'
 
@@ -71,15 +72,23 @@ export default function Board() {
       }
     }
   }
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+   
+    const play = new Play();
+    // console.log(play.GetPosition());
+    dispatch({type:'ADD_START', payload: play.GetPosition()})
+    play.calculation(10);
+    // console.log(play.GetPosition());
+    dispatch({type:'ADD_RANDOM', payload: play.GetPosition()})
   
-  const play = new Play();
-  console.log(play.GetPosition());
-  play.calculation(10);
-  console.log(play.GetPosition());
+   
+  }, [])
+  
   
 const [box, setBox] = useState([0, 1, 2, 3, 4, 5,6, 7, 8]);
 
-console.log(box)
   return (
     <div className='boardGame'>
       { box.map((el) => <Box key={el.id}/> )}
