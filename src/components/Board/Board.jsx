@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import {  useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Box from '../Box/Box';
+import Nav from '../Nav/Nav';
 import './Board.css'
 
 export default function Board() {
+
+  const nav = useSelector(store => store.nav)
 
   class Play {
     constructor() {
@@ -42,19 +45,19 @@ export default function Board() {
       switch (arr[Math.floor(Math.random() * arr.length)]) {
         case 'left':
         this.letf();
-        console.log('up')
+        dispatch({type:'ADD_NAV', payload: 'up'})
         break;
       case 'right':
         this.right();
-        console.log('down')
+        dispatch({type:'ADD_NAV', payload: 'down'})
         break;
       case 'up':
         this.up();
-        console.log('left')
+        dispatch({type:'ADD_NAV', payload: 'left'})
         break;
       case 'down':
         this.down();
-        console.log('right')
+        dispatch({type:'ADD_NAV', payload: 'right'})
         break;
         default:
           console.log('');
@@ -89,10 +92,17 @@ export default function Board() {
   
 const [box, setBox] = useState([0, 1, 2, 3, 4, 5,6, 7, 8]);
 
+const divRef1 = useRef()
+console.log(divRef1)
   return (
-    <div className='boardGame'>
-      { box.map((el) => <Box key={el.id}/> )}
+    <>
+    <div className='boardGame' >
+      { box.map((el) => <Box key={el.id} props={el}/> )}
       
     </div>
+    <div className='navBoard'>
+{nav.map( el =>  <Nav key={el.id} props={el} />)}
+    </div>
+    </>
   )
 }

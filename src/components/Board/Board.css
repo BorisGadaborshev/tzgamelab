@@ -2,11 +2,23 @@
   display: flex;
   flex-flow: column wrap;
   align-content: space-between;
-  height: 665px;
+  height: 600px;
   background-color: #f7f7f7;
   border-radius: 3px;
   padding: 20px;
   width: 50%;
   margin: 40px auto;
 
+}
+
+.navBoard {
+  display: flex;
+  flex-flow: wrap;
+  align-content: space-between;
+  height: 170px;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+  padding: 20px;
+  width: 50%;
+  margin: 40px auto;
 }
