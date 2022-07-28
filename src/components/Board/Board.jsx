@@ -8,6 +8,9 @@ import './Board.css'
 export default function Board() {
 
   const nav = useSelector(store => store.nav)
+  const random = useSelector(store => store.random)
+  let winner;
+let fail;
 
   class Play {
     constructor() {
@@ -89,14 +92,22 @@ export default function Board() {
    
   }, [])
   
-  
-const [box, setBox] = useState([0, 1, 2, 3, 4, 5,6, 7, 8]);
 
-const divRef1 = useRef()
-console.log(divRef1)
+  function win(e) {
+
+    if(e.target.id == random){
+   dispatch({type:'ADD_WIN', payload: e.target.id})
+    } else {
+      dispatch({type:'ADD_FAIL', payload: e.target.id})
+    }
+  }
+const [box, setBox] = useState([1, 2, 3, 4, 5,6, 7, 8, 9]);
+
+
+
   return (
     <>
-    <div className='boardGame' >
+    <div className='boardGame' onClick={win} >
       { box.map((el) => <Box key={el.id} props={el}/> )}
       
     </div>

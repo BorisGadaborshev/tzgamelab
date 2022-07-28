@@ -1,11 +1,10 @@
 .nav{
   border-radius: 3px;
-  margin-right: 18px;
-display: flex;
-  width: 18%;
+  display: flex;
+  width: 17%;
   height: 40%;
   /* Optional */
-justify-content: center;
+
   margin-bottom: 2%;
   border-radius: 3px;
   background-color: #a1cbfa;

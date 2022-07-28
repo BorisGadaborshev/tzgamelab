@@ -3,4 +3,6 @@ export const initState = {
   input: {},
   start: 0,
   nav: [],
+  win:0,
+  fail:0,
 };

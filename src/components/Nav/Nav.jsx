@@ -13,6 +13,6 @@ let up;
   if (props === 'left') up = leftSvg;
   if (props === 'right') up = rightSvg;
   return (
-    <div className='nav'><img className='arrow' src={up}/>{props}</div>
+    <div className='nav'><img className='arrow' src={up} alt=""/>{props}</div>
   )
 }
