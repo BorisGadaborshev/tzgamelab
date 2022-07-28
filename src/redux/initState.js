@@ -5,4 +5,5 @@ export const initState = {
   nav: [],
   win:0,
   fail:0,
+hidden: true,
 };

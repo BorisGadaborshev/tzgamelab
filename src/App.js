@@ -1,5 +1,5 @@
 import Board from './components/Board/Board';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 
 function App() {
 
@@ -8,9 +8,10 @@ function App() {
   const nav = useSelector(store => store.nav)
   console.log('s',start)
   console.log('r',random)
-  console.log('n', nav)
+  
   return (
     <div className="App">
+      <h1 style={{textAlign:"center"}}>Лабиринт</h1>
       <Board/>
     </div>
   );

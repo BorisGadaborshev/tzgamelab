@@ -16,7 +16,7 @@
   display: flex;
   flex-flow: wrap;
   align-content: space-between;
-  justify-content: space-between;
+  justify-content: left;
   height: 170px;
   background-color: #f7f7f7;
   border-radius: 3px;

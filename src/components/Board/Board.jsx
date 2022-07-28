@@ -5,14 +5,20 @@ import Box from '../Box/Box';
 import Nav from '../Nav/Nav';
 import './Board.css'
 
-export default function Board() {
+ function Board() {
 
-  const nav = useSelector(store => store.nav)
+  const nav1 = useSelector(store => store.nav)
+console.log('nav how', nav1);
+let nav;
+let arr=[];
+setTimeout(()=>{
+  nav = [...nav1]
+})
   const random = useSelector(store => store.random)
   const winner = useSelector(store => store.win)
   const fail = useSelector(store => store.fail)
-let flag = true;
-
+const [flag, setFlag] = useState(true)
+console.log('start', flag)
   class Play {
     constructor() {
       this.xPosition = Math.floor(Math.random() * 3); 
@@ -71,51 +77,75 @@ let flag = true;
     calculation(howMany) {
       for (let i = 0; i < howMany; i++) {
 
-        this.move([
-          this.yPosition !== 0 && 'up',
-          this.yPosition !== 2 && 'down',
-          this.xPosition !== 0 && 'left',
-          this.xPosition !== 2 && 'right'
-        ].filter(el => el))
+
+  this.move([
+    this.yPosition !== 0 && 'up',
+    this.yPosition !== 2 && 'down',
+    this.xPosition !== 0 && 'left',
+    this.xPosition !== 2 && 'right'
+  ].filter(el => el))
+
 
       }
     }
   }
   const dispatch = useDispatch();
 
-  useEffect(() => {
-   
-    const play = new Play();
+  const play = new Play();
+
+  
+  const [view, setView] = useState([]);
+  function ren(){
+    
+   console.log('this', nav)
     // console.log(play.GetPosition());
     dispatch({type:'ADD_START', payload: play.GetPosition()})
-
-
+  
+  
       play.calculation(10);
       // console.log(play.GetPosition());
       dispatch({type:'ADD_RANDOM', payload: play.GetPosition()})
 
-  
-   
-  }, [winner, fail])
-  
+    // console.log('nav1',nav1)
+      
+
+  }
+
+useEffect(()=> {
+ren();
+// ren();
+},[])
+
 
   function win(e) {
-    flag = false;
+    console.log('win')
+    setFlag(prev => !prev);
+
+
+    console.log('flag 2', flag)
     dispatch({ type: "DEL_NAV", payload: [] });
+    dispatch({type: 'DEL_HIDDEN', payload: true})
     if (e.target.id == random) {
       dispatch({ type: "ADD_WIN", payload: e.target.id });
     } else {
       dispatch({ type: "ADD_FAIL", payload: e.target.id });
+      dispatch({ type: "ADD_WIN", payload: random });
     }
     setTimeout(()=>{
       dispatch({type:'DEL_FAIL', payload:0})
       dispatch({type:'DEL_WIN', payload:0})
-      dispatch({ type: "DEL_NAV", payload: [] });
+      
     },1500)
+   
+    setView([]);
+    ren();
+setFlag(prev => !prev);
+setTimeout(()=>{
+
+  window.location.href = '/';
+},1500)
   }
 const [box, setBox] = useState([1, 2, 3, 4, 5,6, 7, 8, 9]);
-
-
 
   return (
     <>
@@ -123,9 +153,12 @@ const [box, setBox] = useState([1, 2, 3, 4, 5,6, 7, 8, 9]);
       { box.map((el) => <Box key={el.id} props={el}/> )}
       
     </div>
+    <h3 style={{textAlign:'center'}}>Направление ходов</h3>
     <div className='navBoard'>
-{ nav.map( (el, index) => <Nav key={el.id} props={el} /> )}
+  {flag && nav1.map((el,index) => <Nav key={el.id} el={el} index={index} /> )}
     </div>
     </>
   )
 }
+
+export default Board;

@@ -5,6 +5,8 @@ import { startReducer } from "./startReducer";
 import { navReducer } from "./navReducer";
 import { winReducer } from "./winReducer";
 import { failReducer } from "./failReducer";
+import { hiddenReducer } from "./hiddenReducer";
+
 
 export const rootReducer = combineReducers({
   random: randomReducer,
@@ -12,4 +14,6 @@ export const rootReducer = combineReducers({
   nav: navReducer,
   win: winReducer,
   fail:failReducer,
+  hidden: hiddenReducer,
+
 });
