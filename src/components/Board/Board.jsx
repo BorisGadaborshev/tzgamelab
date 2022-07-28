@@ -11,7 +11,7 @@ export default function Board() {
   const random = useSelector(store => store.random)
   const winner = useSelector(store => store.win)
   const fail = useSelector(store => store.fail)
-let flag = false;
+let flag = true;
 
   class Play {
     constructor() {
@@ -45,7 +45,7 @@ let flag = false;
     }
   
     move(arr) {
-      console.log(`текущая позиция [${this.xPosition}, ${this.yPosition}]. Число: ${this.GetPosition()} `)
+       console.log(`текущая позиция [${this.xPosition}, ${this.yPosition}]. Число: ${this.GetPosition()} `)
       switch (arr[Math.floor(Math.random() * arr.length)]) {
         case 'left':
         this.letf();
@@ -70,12 +70,14 @@ let flag = false;
   
     calculation(howMany) {
       for (let i = 0; i < howMany; i++) {
+
         this.move([
           this.yPosition !== 0 && 'up',
           this.yPosition !== 2 && 'down',
           this.xPosition !== 0 && 'left',
           this.xPosition !== 2 && 'right'
         ].filter(el => el))
+
       }
     }
   }
@@ -86,31 +88,30 @@ let flag = false;
     const play = new Play();
     // console.log(play.GetPosition());
     dispatch({type:'ADD_START', payload: play.GetPosition()})
-    play.calculation(10);
-    // console.log(play.GetPosition());
-    dispatch({type:'ADD_RANDOM', payload: play.GetPosition()})
+
+
+      play.calculation(10);
+      // console.log(play.GetPosition());
+      dispatch({type:'ADD_RANDOM', payload: play.GetPosition()})
+
   
    
   }, [winner, fail])
   
 
   function win(e) {
-
-    if(e.target.id == random){
-      dispatch({type:'ADD_WIN', payload: e.target.id})
-      flag = true;
-      setTimeout(() => {
-    dispatch({type:'DEL_NAV', payload: []})
-    dispatch({type:'DEL_WIN', payload: 0})
-  },2000)
+    flag = false;
+    dispatch({ type: "DEL_NAV", payload: [] });
+    if (e.target.id == random) {
+      dispatch({ type: "ADD_WIN", payload: e.target.id });
     } else {
-      dispatch({type:'ADD_FAIL', payload: e.target.id})
-      flag = true;
-      setTimeout(() => {
-        dispatch({type:'DEL_NAV', payload: []})
-        dispatch({type:'DEL_FAIL', payload: 0})
-      },2000)
+      dispatch({ type: "ADD_FAIL", payload: e.target.id });
     }
+    setTimeout(()=>{
+      dispatch({type:'DEL_FAIL', payload:0})
+      dispatch({type:'DEL_WIN', payload:0})
+      dispatch({ type: "DEL_NAV", payload: [] });
+    },1500)
   }
 const [box, setBox] = useState([1, 2, 3, 4, 5,6, 7, 8, 9]);
 
@@ -123,7 +124,7 @@ const [box, setBox] = useState([1, 2, 3, 4, 5,6, 7, 8, 9]);
       
     </div>
     <div className='navBoard'>
-{nav.map( el =>  <Nav key={el.id} props={el} />)}
+{ nav.map( (el, index) => <Nav key={el.id} props={el} /> )}
     </div>
     </>
   )
