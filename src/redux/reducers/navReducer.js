@@ -5,6 +5,8 @@ export const navReducer = (state = initState, action) => {
   switch (type) {
     case "ADD_NAV":
       return [...state, payload];
+      case "DEL_NAV":
+      return payload;
     default:
       return state;
   }

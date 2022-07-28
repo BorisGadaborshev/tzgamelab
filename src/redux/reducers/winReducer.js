@@ -5,6 +5,8 @@ export const winReducer = (state = initState, action) => {
   switch (type) {
     case "ADD_WIN":
       return payload;
+      case "DEL_WIN":
+      return payload;
     default:
       return state;
   }

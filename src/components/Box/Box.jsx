@@ -10,6 +10,10 @@ export default function Box({ props }) {
   const start = useSelector(state => state.start)
   let strVal ='';
   let winVal = ''
+  let failVal = '';
+  let back = {
+    backgroundColor: ''
+  };
   const winner = useSelector(store => store.win);
   const fail = useSelector(store => store.fail);
 console.log('win',winner)
@@ -19,17 +23,25 @@ if (start === props) {
    strVal = startPng;
 }
 if(winner && winner == props){
-strVal = winPng
+winVal = winPng;
+back.backgroundColor = 'green'
 }
 
 if(fail && fail == props){
-  winVal = failPng;
+  failVal = failPng;
+  back.backgroundColor = 'red'
 }
 
 
   return (
     <>
-    <div className='boxgame' id={props}><img className='start' src={strVal} alt="" />{winVal && <div id={props}><img className='start' src={winVal} alt="" /></div>}</div>
+    <div className='boxgame' id={props} style={back}>
+      <img className='start' src={strVal} alt="" />
+      {failVal && 
+        <img className='start' src={failVal} alt="" />}
+        {winVal && 
+        <img className='start' src={winVal} alt="" />}
+        </div>
     
     </>
   )

@@ -9,8 +9,9 @@ export default function Board() {
 
   const nav = useSelector(store => store.nav)
   const random = useSelector(store => store.random)
-  let winner;
-let fail;
+  const winner = useSelector(store => store.win)
+  const fail = useSelector(store => store.fail)
+let flag = false;
 
   class Play {
     constructor() {
@@ -90,15 +91,25 @@ let fail;
     dispatch({type:'ADD_RANDOM', payload: play.GetPosition()})
   
    
-  }, [])
+  }, [winner, fail])
   
 
   function win(e) {
 
     if(e.target.id == random){
-   dispatch({type:'ADD_WIN', payload: e.target.id})
+      dispatch({type:'ADD_WIN', payload: e.target.id})
+      flag = true;
+      setTimeout(() => {
+    dispatch({type:'DEL_NAV', payload: []})
+    dispatch({type:'DEL_WIN', payload: 0})
+  },2000)
     } else {
       dispatch({type:'ADD_FAIL', payload: e.target.id})
+      flag = true;
+      setTimeout(() => {
+        dispatch({type:'DEL_NAV', payload: []})
+        dispatch({type:'DEL_FAIL', payload: 0})
+      },2000)
     }
   }
 const [box, setBox] = useState([1, 2, 3, 4, 5,6, 7, 8, 9]);
