@@ -1,5 +1,4 @@
 import React,{ useState, useEffect} from 'react'
-import{ useSelector, useDispatch} from 'react-redux'
 import './Nav.css'
 import upSvg from '../../assests/arrow-up.svg'
 import downSvg from '../../assests/arrow-down.svg'
@@ -9,7 +8,7 @@ export default function Nav({el, index}) {
 let up;
 
 const [hidden, setHidden] = useState(true);
-const dispatch = useDispatch();
+
 useEffect(() => {
 
 const id = setTimeout(()=>{
@@ -19,7 +18,6 @@ const id = setTimeout(()=>{
   clearTimeout(id)
  }
 }, [])
-
 
   if (el === 'up') up = upSvg;
   if (el === 'down') up = downSvg;

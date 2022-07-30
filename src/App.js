@@ -6,8 +6,8 @@ function App() {
   const random = useSelector(store => store.random)
   const start = useSelector(store => store.start)
   const nav = useSelector(store => store.nav)
-  console.log('s',start)
-  console.log('r',random)
+  console.log('start',start)
+  console.log('random',random)
   
   return (
     <div className="App">

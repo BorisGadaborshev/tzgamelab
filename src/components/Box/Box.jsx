@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import "./Box.css";
 import startPng from "../../assests/495468.png";
 import winPng from "../../assests/winner.png";
@@ -10,7 +10,6 @@ function Box({ props }) {
   let strVal = "";
   let winVal = "";
   let failVal = "";
-  const dispatch = useDispatch();
   let back = {
     backgroundColor: "",
     animationDuration: "",
@@ -19,7 +18,6 @@ function Box({ props }) {
   const winner = useSelector((store) => store.win);
   const fail = useSelector((store) => store.fail);
   
-  // console.log('fail',props)
 
   if (start === props) {
     strVal = startPng;
@@ -27,9 +25,7 @@ function Box({ props }) {
   if (winner && winner == props) {
     winVal = winPng;
     back.backgroundColor = "green";
-    // dispatch({type:'DEL_WIN', payload:0})
-    // back.animationDuration = '3s'
-    // back.animationName = 'slide'
+
   }
 
   if (fail && fail == props) {
